@@ -1,1 +1,3 @@
 from tests.test_database_service import TestDatabaseService
+from tests.test_main_page import TestMainPage
+from tests.test_reddit_api import TestRedditAPI
