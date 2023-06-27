@@ -13,7 +13,7 @@ class TestRedditAPI(unittest.TestCase):
         '''Método responsável por inicializar os dados necessários
         para execução dos testes unitários.'''
         self.USER = os.getenv('API_USER')
-        self.PASSWORD = os.environ.get('API_PASSWORD', 'u@QM<r5?MxsUdUD')
+        self.PASSWORD = os.environ.get('API_PASSWORD')
         self.KEY = os.getenv('API_KEY')
         self.SECRET_KEY = os.environ.get('API_SECRET_KEY')
 
