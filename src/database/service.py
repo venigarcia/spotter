@@ -17,5 +17,5 @@ class DatabaseService():
     def __get_database(self):
         '''Método responsável por criar uma conexão com o
         banco de dados'''
-        client = MongoClient(host=self.db_host, port=self.db_port)
+        client = MongoClient(host=self.db_host, port=self.db_port, uuidRepresentation='standard')
         return client

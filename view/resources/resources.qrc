@@ -1,5 +1,7 @@
 <RCC>
   <qresource prefix="icons">
+    <file>icons/Rocket.svg</file>
+    <file>icons/RocketLaunch.svg</file>
     <file>icons/AndroidLogo.svg</file>
     <file>icons/AngularLogo.svg</file>
     <file>icons/AppleLogo.svg</file>
