@@ -18,7 +18,7 @@ class MainWindow(QtWidgets.QMainWindow):
         super().__init__(*args, **kwargs)
         uic.loadUi("view/gui/main_page.ui", self)
         self.setWindowTitle("Spotter")
-        self.navegar_controller = NavegarController(DatabaseService('pfp_base'), 
+        self.navegar_controller = NavegarController(DatabaseService('spotter_base'), 
                                                     self.scrollAreaWidgetContents_2, 
                                                     self.verticalLayout_24)
         self.navegar_controller.start()
@@ -78,7 +78,7 @@ class MainWindow(QtWidgets.QMainWindow):
             apis.append(self.reddit_api)
             if self.radio_btn_topico.isChecked() or self.radio_btn_palavra_chave.isChecked():
                 self.coletar_controller = ColetarController(
-                                                            DatabaseService('pfp_base'),
+                                                            DatabaseService('spotter_base'),
                                                             apis,
                                                             self.plainTextEdit_topico.toPlainText(),
                                                             self.plainTextEdit_palavra.toPlainText()
