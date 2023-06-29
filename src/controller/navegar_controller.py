@@ -3,7 +3,7 @@ from PyQt5.QtCore import QThread, QTimer, QEventLoop, Qt
 from src.database import DatabaseService
 from view.gui.widget_navegar_page import WidgetNavegarPage
 from view.gui.empty_widget_navegar_page import EmptyWidgetNavegarPage
-
+from view.gui.progress_widget_nagevar_page import ProgressWidgetNavegarPage
 
 class NavegarController(QThread):
     '''Controller da página de navegação, responsável por apresentar os
@@ -43,6 +43,20 @@ class NavegarController(QThread):
                 if child.uuid_value.text() not in coletas_id:
                     self.layout.removeWidget(child)
             self.len_coletas = len(coletas)
+
+    def insert_progress_widget(self, param) -> None:
+        empty_widget = self.parent_widget_navegar.findChildren(EmptyWidgetNavegarPage)
+        if empty_widget:
+            self.layout.removeWidget(empty_widget[0])
+        custom_widget = ProgressWidgetNavegarPage(self.parent_widget_navegar)
+        custom_widget.set_uuid(param)
+        self.layout.addWidget(custom_widget, 0, Qt.AlignTop)
+
+    def remove_progress_widget(self, param) -> None:
+        progress_widget = self.parent_widget_navegar.findChildren(ProgressWidgetNavegarPage)
+        for widget in progress_widget:
+            if widget.uuid_value.text()==param.hex:
+                self.layout.removeWidget(widget)
 
     def run(self) -> None:
         '''Método responsável por executar a thread da página

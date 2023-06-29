@@ -42,6 +42,7 @@ class RedditAPI(ApiInterface):
             self.token = res.json()['access_token']
         except Exception as error:
             print('Caught this error: ' + repr(error))
+            raise error
 
     def get_name_api(self) -> str:
         '''Método que retorna o nome da api para futura
@@ -72,6 +73,7 @@ class RedditAPI(ApiInterface):
             return response
         except Exception as error:
             print('Caught this error: ' + repr(error))
+            raise error
 
     def get_posts_with_topics(self, topics: list) -> list:
         '''Método para coletar comentários do Reddit que perteçam
@@ -104,3 +106,4 @@ class RedditAPI(ApiInterface):
             return response
         except Exception as error:
             print('Caught this error: ' + repr(error))
+            raise error

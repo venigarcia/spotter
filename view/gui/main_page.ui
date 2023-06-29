@@ -88,7 +88,7 @@
      <number>0</number>
     </property>
     <item alignment="Qt::AlignLeft">
-     <widget class="QCustomSlideMenu" name="left_menu_container" native="true">
+     <widget class="QWidget" name="left_menu_container" native="true">
       <property name="minimumSize">
        <size>
         <width>120</width>
@@ -336,33 +336,6 @@ QPushButton:hover:pressed {
                </property>
               </widget>
              </item>
-             <item>
-              <widget class="QPushButton" name="historico_btn">
-               <property name="font">
-                <font>
-                 <pointsize>10</pointsize>
-                 <weight>75</weight>
-                 <bold>true</bold>
-                </font>
-               </property>
-               <property name="toolTip">
-                <string>Histórico</string>
-               </property>
-               <property name="text">
-                <string>Histórico</string>
-               </property>
-               <property name="icon">
-                <iconset resource="../resources/resources.qrc">
-                 <normaloff>:/icons/icons/ArchiveBox.svg</normaloff>:/icons/icons/ArchiveBox.svg</iconset>
-               </property>
-               <property name="iconSize">
-                <size>
-                 <width>30</width>
-                 <height>30</height>
-                </size>
-               </property>
-              </widget>
-             </item>
             </layout>
            </widget>
           </item>
@@ -454,7 +427,7 @@ QPushButton:hover:pressed {
              <number>0</number>
             </property>
             <property name="currentIndex">
-             <number>1</number>
+             <number>3</number>
             </property>
             <widget class="QWidget" name="coletar_page">
              <layout class="QVBoxLayout" name="verticalLayout_6">
@@ -867,8 +840,8 @@ QPushButton:hover:pressed {
                   <rect>
                    <x>0</x>
                    <y>0</y>
-                   <width>604</width>
-                   <height>256</height>
+                   <width>971</width>
+                   <height>695</height>
                   </rect>
                  </property>
                  <property name="styleSheet">
@@ -1623,33 +1596,9 @@ QLineEdit:focus{
               </item>
              </layout>
             </widget>
-            <widget class="QWidget" name="historico_page">
-             <layout class="QVBoxLayout" name="verticalLayout_9">
-              <item>
-               <widget class="QLabel" name="historico_page_label">
-                <property name="font">
-                 <font>
-                  <pointsize>15</pointsize>
-                  <weight>75</weight>
-                  <bold>true</bold>
-                 </font>
-                </property>
-                <property name="text">
-                 <string>Histórico</string>
-                </property>
-                <property name="alignment">
-                 <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
-                </property>
-                <property name="margin">
-                 <number>10</number>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </widget>
             <widget class="QWidget" name="info_page">
              <layout class="QVBoxLayout" name="verticalLayout_10">
-              <item>
+              <item alignment="Qt::AlignTop">
                <widget class="QLabel" name="info_page_label">
                 <property name="font">
                  <font>
@@ -1669,6 +1618,40 @@ QLineEdit:focus{
                 </property>
                </widget>
               </item>
+              <item>
+               <widget class="QFrame" name="frame_5">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="frameShape">
+                 <enum>QFrame::StyledPanel</enum>
+                </property>
+                <property name="frameShadow">
+                 <enum>QFrame::Raised</enum>
+                </property>
+                <layout class="QHBoxLayout" name="horizontalLayout_27">
+                 <item>
+                  <widget class="QTextBrowser" name="textBrowser">
+                   <property name="styleSheet">
+                    <string notr="true">border:opx;</string>
+                   </property>
+                   <property name="html">
+                    <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:7.8pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;Essa aplicação foi desenvolvida durante a disciplina de Projeto Final de Programação no programa de mestrado da Pontifícia Universidade Católica do Rio de Janeiro (PUC-Rio) e tem como objetivo permitir ao usuário gerar uma base de dados a partir de comentários disponíveis nas redes sociais através de suas APIs e armazená-las em um banco NO SQL, sendo possível filtrar os comentários por palavras-chaves ou tópicos.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:10pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;Um manual de usuário com os passo-a-passo de como inserir chaves de acesso, coletar novos dados e navegar está disponível em um repositório aberto no GitHub, &lt;/span&gt;&lt;a href=&quot;https://github.com/venigarcia/spotter_pfp&quot;&gt;&lt;span style=&quot; font-size:8pt; text-decoration: underline; color:#0000ff;&quot;&gt;ir para manual do usuário.&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </widget>
+              </item>
              </layout>
             </widget>
            </widget>
@@ -1682,14 +1665,6 @@ QLineEdit:focus{
    </layout>
   </widget>
  </widget>
- <customwidgets>
-  <customwidget>
-   <class>QCustomSlideMenu</class>
-   <extends>QWidget</extends>
-   <header location="global">Custom_Widgets.Widgets.h</header>
-   <container>1</container>
-  </customwidget>
- </customwidgets>
  <resources>
   <include location="../resources/resources.qrc"/>
  </resources>

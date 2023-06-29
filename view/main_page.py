@@ -1,7 +1,7 @@
 from PyQt5 import QtWidgets, uic
 from PyQt5.QtCore import *
 from PyQt5.QtGui import QFont, QFontDatabase, QColor, QIcon
-from PyQt5.QtWidgets import QGraphicsDropShadowEffect, QTableWidgetItem, QAction
+from PyQt5.QtWidgets import QGraphicsDropShadowEffect, QTableWidgetItem, QAction, QMessageBox
 import view.resources.resources
 from src.controller import ColetarController, NavegarController
 from src.database import DatabaseService
@@ -28,7 +28,6 @@ class MainWindow(QtWidgets.QMainWindow):
         self.menu_slide_btn.clicked.connect(lambda: self.slide_menu())
         self.coletar_btn.clicked.connect(lambda: self.show_coletar_page())
         self.navegar_btn.clicked.connect(lambda: self.show_navegar_page())
-        self.historico_btn.clicked.connect(lambda: self.show_historico_page())
         self.info_btn.clicked.connect(lambda: self.show_info_page())
         self.api_btn.clicked.connect(lambda: self.show_api_page())
         self.coletar_novos_btn.clicked.connect(lambda: self.coletar_novos_dados())
@@ -41,9 +40,6 @@ class MainWindow(QtWidgets.QMainWindow):
 
     def show_navegar_page(self):
         self.stackedWidget.setCurrentWidget(self.navegar_page)
-
-    def show_historico_page(self):
-        self.stackedWidget.setCurrentWidget(self.historico_page)
 
     def show_info_page(self):
         self.stackedWidget.setCurrentWidget(self.info_page)
@@ -66,19 +62,39 @@ class MainWindow(QtWidgets.QMainWindow):
             self.animation1.start()
             self.slide_menu_num = 0
 
-    def coletar_novos_dados(self):
+    def emit_alert_page(self, message) -> None:
+        dlg = QMessageBox(self)
+        dlg.setWindowTitle("ERROR")
+        dlg.setText(message)
+        dlg.exec()
+
+    def coletar_novos_dados(self) -> None:
         apis = []
-        if self.radio_btn_reddit.isChecked():
-            self.reddit_api = RedditAPI(self.lineEdit_3.text(), self.lineEdit_4.text(),
-                                        self.lineEdit_2.text(), self.lineEdit.text())
+        try:
+            if self.radio_btn_reddit.isChecked():
+                    self.reddit_api = RedditAPI(self.lineEdit_3.text(), self.lineEdit_4.text(),
+                                            self.lineEdit_2.text(), self.lineEdit.text())
+                
             apis.append(self.reddit_api)
-        if self.radio_btn_topico.isChecked() or self.radio_btn_palavra_chave.isChecked():
-            self.coletar_controller = ColetarController(
-                                                        DatabaseService('pfp_base'),
-                                                        apis,
-                                                        self.plainTextEdit_topico.toPlainText(),
-                                                        self.plainTextEdit_palavra.toPlainText()
-                                                    )
-            self.coletar_controller.signal.update_gui_navegar.connect(
-                        self.navegar_controller.get_coletas)
-            self.coletar_controller.start()
+            if self.radio_btn_topico.isChecked() or self.radio_btn_palavra_chave.isChecked():
+                self.coletar_controller = ColetarController(
+                                                            DatabaseService('pfp_base'),
+                                                            apis,
+                                                            self.plainTextEdit_topico.toPlainText(),
+                                                            self.plainTextEdit_palavra.toPlainText()
+                                                        )
+                self.coletar_controller.signal.update_gui_navegar.connect(
+                            self.navegar_controller.get_coletas)
+                self.coletar_controller.signal.insert_progress_widget.connect(
+                            self.navegar_controller.insert_progress_widget
+                )
+                self.coletar_controller.signal.remove_progress_widget.connect(
+                            self.navegar_controller.remove_progress_widget
+                )
+                self.coletar_controller.signal.error.connect(
+                            self.emit_alert_page
+                )
+                self.coletar_controller.start()
+        except Exception:
+            self.emit_alert_page("Erro, verifique as chaves inseridas e tente novamente.")
+

@@ -1,4 +1,5 @@
 from PyQt5.QtCore import QThread, pyqtSignal, QObject
+from PyQt5.QtWidgets import QMessageBox
 from typing import List
 from src.interface import ApiInterface
 from uuid import uuid4, UUID
@@ -24,6 +25,7 @@ class ColetarController(QThread):
         em um dicionário'''
         try:
             id_coleta = uuid4()
+            self.signal.insert_progress_widget.emit(id_coleta)
             #Dicionário que irá armazenar os resultados das chamadas às APIs
             dict_response = {}
             #Lista com os nomes das APIs utilizadas
@@ -46,6 +48,9 @@ class ColetarController(QThread):
                                     self.topicos, self.palavras_chaves, data)
         except Exception as error:
             print('Caught this error: ' + repr(error))
+            self.signal.remove_progress_widget.emit(id_coleta)
+            self.signal.update_gui_navegar.emit()
+            self.signal.error.emit("Erro, verifique os filtros inseridos e tente novamente.")
 
     def __inserir_dados_sentencas(self, dict_response:dict, id_coleta:UUID) -> None:
         '''Insere os dados coletados através das chamadas às APIS
@@ -58,6 +63,7 @@ class ColetarController(QThread):
                 collection_name.insert_many(dict_response[key])
         except Exception as error:
             print('Caught this error: ' + repr(error))
+            raise error
 
     def __inserir_dados_coleta(self, list_apis_names:list, id_coleta:UUID,
                              topicos:list, palavras_chaves:list, data: datetime) -> None:
@@ -75,10 +81,15 @@ class ColetarController(QThread):
                                         if palavras_chaves else None
             }
             collection_name.insert_one(coleta)
+            self.signal.remove_progress_widget.emit(id_coleta)
             self.signal.update_gui_navegar.emit()
         except Exception as error:
             print('Caught this error: ' + repr(error))
+            raise error
 
 class Signals(QObject):
     '''Classe para emissão de sinais entre os controllers'''
-    update_gui_navegar = pyqtSignal()
+    update_gui_navegar = pyqtSignal() # Atualiza a página de navegação
+    insert_progress_widget = pyqtSignal(UUID) # Insere um widget de coleta em progresso
+    remove_progress_widget = pyqtSignal(UUID) # Remove um widget de coleta em progresso
+    error = pyqtSignal(str) # Emite um sinal de erro na coleta
